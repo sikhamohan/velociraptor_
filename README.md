@@ -59,15 +59,3 @@ tools. On Ubuntu this is simply:
 ```bash
 $ sudo apt-get install mingw-w64-x86-64-dev gcc-mingw-w64-x86-64 gcc-mingw-w64
 ```
-
-
-
-
-
-
-Read more about Velociraptor on our blog:
-https://docs.velociraptor.app/blog/
-
-Hang out on Medium https://medium.com/velociraptor-ir
-
-Follow us on Twitter [@velocidex](https://twitter.com/velocidex)
