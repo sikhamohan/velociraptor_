@@ -1,0 +1,20 @@
+// pstparser
+
+LET Filename = '''D:/MyPST/Outlook.pst'''
+LET AttachmentFolder = '''D:/VR_Output/attachments'''
+LET PSTInfo = SELECT * from parse_pst(filename=Filename, FolderPath=AttachmentFolder)
+LET AttachmentFiles <= SELECT OSPath, Name, Size
+        FROM glob(globs=AttachmentFolder +'''/*''',accessor='auto')
+        WHERE NOT IsDir AND NOT IsLink 
+        
+LET Hashme = SELECT Name, Size, hash(path=OSPath) as Hash
+    FROM AttachmentFiles
+    WHERE NOT IsDir
+                
+    SELECT Sender, Receiver, Subject, DateandTime, Attachments,
+                {
+                    SELECT Hash
+                    FROM Hashme
+                    WHERE Name IN Attachments
+                } AS AttachmentHashes
+                FROM PSTInfo
