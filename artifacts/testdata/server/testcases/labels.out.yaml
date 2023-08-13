@@ -1,0 +1,58 @@
+LET _ <= SELECT label(client_id=client_id, op='remove', labels=labels), client_id
+FROM clients(search='label:*') ORDER BY client_id
+[]SELECT client_id, labels FROM clients(search='label:*')[]SELECT * FROM foreach(
+  row={
+     SELECT * FROM clients()
+     WHERE os_info.system = 'windows' ORDER BY client_id
+  }, query={
+     SELECT os_info.system, label(
+         client_id=client_id, labels=['WinBoxes'],
+         op='set')
+     FROM scope()
+  })
+[
+ {
+  "os_info.system": "windows",
+  "label(client_id=client_id, labels=['WinBoxes'], op='set')": {
+   "ClientId": "C.4f5e52adf0a337a9",
+   "Labels": [
+    "WinBoxes"
+   ],
+   "Op": "set"
+  }
+ }
+]SELECT client_id, labels FROM clients(search='label:*')[
+ {
+  "client_id": "C.4f5e52adf0a337a9",
+  "labels": [
+   "WinBoxes"
+  ]
+ }
+]SELECT label(client_id='C.4f5e52adf0a337a9', labels=['WinBoxes'], op='check') AS HasLabel FROM scope()[
+ {
+  "HasLabel": {
+   "ClientId": "C.4f5e52adf0a337a9",
+   "Labels": [
+    "WinBoxes"
+   ],
+   "Op": "check"
+  }
+ }
+]SELECT label(client_id='C.4f5e52adf0a337a9', labels=['XXXBoxes'], op='check') AS HasLabel FROM scope()[
+ {
+  "HasLabel": false
+ }
+]SELECT label(client_id=client_id, op='remove', labels=labels), client_id
+FROM clients(search='label:*') ORDER BY client_id
+[
+ {
+  "label(client_id=client_id, op='remove', labels=labels)": {
+   "ClientId": "C.4f5e52adf0a337a9",
+   "Labels": [
+    "WinBoxes"
+   ],
+   "Op": "remove"
+  },
+  "client_id": "C.4f5e52adf0a337a9"
+ }
+]SELECT * FROM clients(search='label:*') ORDER BY client_id[]

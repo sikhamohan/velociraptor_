@@ -1,0 +1,20 @@
+.notebook-filter label {
+    margin-bottom: 0px;
+}
+
+.notebook-filter input {
+    height: 1.5em;
+}
+
+.notebook-filter td.sort-element {
+    vertical-align: middle;
+}
+
+div.error-message {
+    font-size: var(--font-size-small);
+    color: var(--color-level-error) !important;
+}
+
+.notebook-output {
+    overflow-x: visible;
+}

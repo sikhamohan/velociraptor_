@@ -1,0 +1,69 @@
+.new-artifact-search-table {
+    height: calc(100vh - 232px);
+    overflow: auto;
+}
+
+.new-artifact-description .report-viewer {
+    height: calc(100vh - 232px);
+    overflow: auto;
+}
+
+.new-artifact-description .report-viewer pre {
+    overflow: unset;
+}
+
+
+.new-artifact-page {
+}
+
+
+.new-collection-parameter-page label.form-label {
+    text-align: right;
+    font-weight: bold;
+}
+
+.form-check {
+    padding-top: 7px;
+}
+
+.expand-cell {
+    width: 20px;
+}
+
+
+.new-artifact-page th label.filter-label {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.favorites {
+    width: 400px;
+    line-height: normal;
+}
+
+.favorite-button {
+    height: 42px;
+}
+
+table.param-form-table {
+    width: 100%;
+}
+
+.param-form-autosuggest .react-autosuggest__input {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.param-form-autosuggest .react-autosuggest__suggestions-container {
+    width: 130%;
+    margin: 0px;
+}
+
+.param-form-autosuggest div.react-autosuggest__suggestions-container--open {
+    margin-left: 0px;
+}
+
+.trace-selector {
+    width: 100%;
+    white-space: break-spaces;
+}

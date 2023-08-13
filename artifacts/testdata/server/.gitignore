@@ -1,0 +1,8 @@
+config
+public
+server_artifacts
+server_artifact_logs
+*.json.db
+client_idx
+artifact_definitions
+orgs

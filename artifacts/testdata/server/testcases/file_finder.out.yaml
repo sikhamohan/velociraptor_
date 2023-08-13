@@ -1,0 +1,70 @@
+SELECT mock(plugin='info', results=[dict(OS='windows'), dict(OS='windows')] ) FROM scope()[
+ {
+  "mock(plugin='info', results=[dict(OS='windows'), dict(OS='windows')])": null
+ }
+]SELECT basename(path=FullPath) AS File, Hash, Size, Upload, Keywords FROM Artifact.Windows.Search.FileFinder( SearchFilesGlob=srcDir + "/artifacts/testdata/files/*.zip") WHERE File =~ "test"[
+ {
+  "File": "test.zip",
+  "Hash": null,
+  "Size": 1064,
+  "Upload": null,
+  "Keywords": ""
+ }
+]SELECT basename(path=FullPath) AS File, Hash, Size, Upload, Keywords FROM Artifact.Windows.Search.FileFinder( Calculate_Hash="Y", SearchFilesGlob=srcDir + "/artifacts/testdata/files/*.zip") WHERE File =~ "test"[
+ {
+  "File": "test.zip",
+  "Hash": {
+   "MD5": "0f72ff84405a6f2def7d2446d9d5e836",
+   "SHA1": "fa4788b00178b453a8bf6ae178d2c54098dddfab",
+   "SHA256": "a9182ad490142b1bfd2c816ae9a79b27caa2414835ac54903075e29eea9d5d75"
+  },
+  "Size": 1064,
+  "Upload": null,
+  "Keywords": ""
+ }
+]SELECT basename(path=FullPath) AS File, Hash, Size, Upload.md5, Keywords FROM Artifact.Windows.Search.FileFinder( Upload_File="Y", SearchFilesGlob=srcDir + "/artifacts/testdata/files/*.zip") WHERE File =~ "test"[
+ {
+  "File": "test.zip",
+  "Hash": null,
+  "Size": 1064,
+  "Upload.md5": "0f72ff84405a6f2def7d2446d9d5e836",
+  "Keywords": ""
+ }
+]SELECT basename(path=FullPath) AS File, Keywords FROM Artifact.Windows.Search.FileFinder( YaraRule="wide nocase ascii:supercalifragilisticexpialidocious", SearchFilesGlob=srcDir + "/artifacts/testdata/**/*.in.yaml")[
+ {
+  "File": "file_finder.in.yaml",
+  "Keywords": "supercalifragilisticexpialidocious"
+ }
+]SELECT basename(path=FullPath) AS File, Hash, Size, Upload, Keywords
+FROM Artifact.Windows.Search.FileFinder(
+    SearchFilesGlob="",
+    SearchFilesGlobTable="Glob\n"+ srcDir + "/artifacts/testdata/files/*.zip\n")
+WHERE File =~ "test"
+[
+ {
+  "File": "test.zip",
+  "Hash": null,
+  "Size": 1064,
+  "Upload": null,
+  "Keywords": ""
+ }
+]LET MockData <= SELECT *, timestamp(epoch=Mtime) AS Mtime, timestamp(epoch=Atime) AS Atime, timestamp(epoch=Ctime) AS Ctime, timestamp(epoch=Btime) AS Btime FROM parse_json_array(data=GlobMock)[]LET _ <= mock(plugin="glob", results=MockData)[]SELECT FullPath, MTime FROM Artifact.Windows.Search.FileFinder( MoreRecentThan=timestamp(string="2020-04-29T13:39:00Z"))[
+ {
+  "FullPath": "Users/yolo/Desktop/file2.txt",
+  "MTime": "2020-04-29T13:40:10Z"
+ },
+ {
+  "FullPath": "Users/yolo/Desktop/file3.txt",
+  "MTime": "2020-04-29T13:41:50Z"
+ }
+]SELECT FullPath, MTime FROM Artifact.Windows.Search.FileFinder( ModifiedBefore=timestamp(string="2020-04-29T13:39:00Z"))[
+ {
+  "FullPath": "Users/yolo/Desktop/file.txt",
+  "MTime": "2020-04-29T13:38:27Z"
+ }
+]SELECT FullPath, MTime FROM Artifact.Windows.Search.FileFinder( MoreRecentThan=timestamp(string="2020-04-29T13:39:00Z"), ModifiedBefore=timestamp(string="2020-04-29T13:41:00Z"))[
+ {
+  "FullPath": "Users/yolo/Desktop/file2.txt",
+  "MTime": "2020-04-29T13:40:10Z"
+ }
+]
