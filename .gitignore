@@ -8,7 +8,6 @@ emacs.desktop
 /debian/velociraptor.debhelper.log
 *.debhelper
 ab0x.go
-output/
 .velociraptor_history.json
 .idea/
 node_modules/
