@@ -1,4 +1,4 @@
-// pstparser
+// vql - finding hashes of attachments
 
 LET Filename = '''D:/MyPST/Outlook.pst'''
 LET AttachmentFolder = '''D:/VR_Output/attachments'''
